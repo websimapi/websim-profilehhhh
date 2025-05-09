@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧀 CHEESE MODE PROFILE 🧀</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Chewy&display=swap');
+        
+        :root {
+            --cheese-yellow: #ffc857;
+            --cheese-orange: #e49b0f;
+            --cheese-dark: #d18700;
+            --cheese-hole: #fff5d7;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cheese-hole);
+            background-image: url('cheese_bg.png');
+            background-repeat: repeat;
+            overflow-x: hidden;
+            cursor: url('cheese_cursor.png'), auto;
+        }
+        
+        .cheese-header {
+            background-color: var(--cheese-orange);
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            background-image: url('cheese_top.png');
+            background-repeat: repeat-x;
+            background-position: bottom;
+            box-shadow: 0 4px 15px rgba(209, 135, 0, 0.6);
+            z-index: 10;
+        }
+        
+        .cheese-title {
+            font-family: 'Chewy', cursive;
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 3px 3px 0 var(--cheese-dark), 
+                         6px 6px 0 rgba(0, 0, 0, 0.3);
+            animation: wobble 5s infinite;
+            margin-bottom: 10px;
+        }
+        
+        .cheese-subtitle {
+            font-family: 'Bungee', cursive;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        .cheese-avatar-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .cheese-avatar-frame {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            top: -15px;
+            left: -15px;
+            z-index: 2;
+        }
+        
+        .avatar {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        
+        .profile-info {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 3;
+            background-color: rgba(255, 245, 215, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 5px solid var(--cheese-orange);
+            max-width: 600px;
+        }
+        
+        .username {
+            font-family: 'Chewy', cursive;
+            font-size: 3rem;
+            color: var(--cheese-dark);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 var(--cheese-yellow);
+        }
+        
+        .bio {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .projects-section {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .projects-title {
+            font-family: 'Chewy', cursive;
+            font-size: 2.5rem;
+            color: var(--cheese-dark);
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 0 var(--cheese-yellow);
+            position: relative;
+        }
+        
+        .projects-title::before,
+        .projects-title::after {
+            content: '';
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-image: url('cheese_icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 30px;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border: 5px solid var(--cheese-yellow);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(209, 135, 0, 0.3);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .project-info {
+            padding: 20px;
+        }
+        
+        .project-title {
+            font-family: 'Bungee', cursive;
+            font-size: 1.3rem;
+            color: var(--cheese-dark);
+            margin-bottom: 10px;
+        }
+        
+        .project-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .project-stats {
+            display: flex;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        .project-stat {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .project-stat i {
+            margin-right: 5px;
+        }
+        
+        .cheese-footer {
+            background-color: var(--cheese-orange);
+            text-align: center;
+            padding: 30px;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            background-image: url('cheese_bottom.png');
+            background-repeat: repeat-x;
+            background-position: top;
+        }
+        
+        .floating-cheese {
+            position: fixed;
+            z-index: 9;
+            pointer-events: none;
+            animation: float 10s infinite ease-in-out;
+        }
+        
+        #cheese1 {
+            top: 20%;
+            left: 10%;
+            width: 120px;
+            animation-delay: 0s;
+        }
+        
+        #cheese2 {
+            bottom: 30%;
+            right: 15%;
+            width: 100px;
+            animation-delay: 2s;
+        }
+        
+        #cheese3 {
+            top: 60%;
+            left: 20%;
+            width: 80px;
+            animation-delay: 4s;
+        }
+        
+        #cheese4 {
+            top: 10%;
+            right: 25%;
+            width: 70px;
+            animation-delay: 6s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+        
+        @keyframes wobble {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                transform: rotate(-2deg) scale(1.05);
+            }
+            75% {
+                transform: rotate(2deg) scale(0.95);
+            }
+        }
+        
+        .cheese-button {
+            background-color: var(--cheese-yellow);
+            color: var(--cheese-dark);
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Chewy', cursive;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s;
+            border: 3px solid var(--cheese-dark);
+        }
+        
+        .cheese-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .cheese-button:active {
+            transform: scale(0.95);
+        }
+        
+        .bobby-quote {
+            font-family: 'Chewy', cursive;
+            font-size: 1.8rem;
+            color: var(--cheese-dark);
+            text-align: center;
+            margin: 40px auto;
+            max-width: 800px;
+            line-height: 1.4;
+            padding: 20px;
+            background-color: rgba(255, 245, 215, 0.8);
+            border-radius: 15px;
+            position: relative;
+        }
+        
+        .bobby-quote::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            color: var(--cheese-orange);
+        }
+        
+        .bobby-quote::after {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            bottom: -40px;
+            right: 10px;
+            color: var(--cheese-orange);
+        }
+        
+        .cheese-animation {
+            animation: cheese-spin 15s linear infinite;
+        }
+        
+        @keyframes cheese-spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .cheese-mode-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            background-color: var(--cheese-yellow);
+            border: 4px solid var(--cheese-dark);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cheese-mode-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .loading-cheese {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--cheese-hole);
+            z-index: 9999;
+            flex-direction: column;
+        }
+        
+        .cheese-loader {
+            width: 150px;
+            height: 150px;
+            animation: cheese-bounce 2s infinite;
+        }
+        
+        .loading-text {
+            font-family: 'Chewy', cursive;
+            font-size: 2rem;
+            color: var(--cheese-dark);
+            margin-top: 20px;
+        }
+        
+        @keyframes cheese-bounce {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(10deg);
+            }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .cheese-title {
+                font-size: 3rem;
+            }
+            
+            .cheese-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .username {
+                font-size: 2.5rem;
+            }
+            
+            .bobby-quote {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cheese-title {
+                font-size: 2.5rem;
+            }
+            
+            .cheese-avatar-container {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .cheese-avatar-frame {
+                width: 230px;
+                height: 230px;
+            }
+            
+            .avatar {
+                width: 170px;
+                height: 170px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-cheese {
+                width: 60px !important;
+            }
+            
+            .cheese-mode-toggle {
+                width: 60px;
+                height: 60px;
+            }
+        }
+        
+        /* Cool text effect */
+        .cheese-text {
+            background: linear-gradient(to right, var(--cheese-dark), var(--cheese-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        /* Added melting cheese effect */
+        .melting-cheese {
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            bottom: -30px;
+            left: 0;
+            background-image: url('cheese_drip.png');
+            background-repeat: repeat-x;
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-cheese" id="loadingScreen">
+        <img src="cheese_loader.png" alt="Loading Cheese" class="cheese-loader">
+        <div class="loading-text">Loading CHEESE MODE...</div>
+    </div>
+
+    <!-- Floating Cheese Elements -->
+    <img src="cheese_float1.png" alt="Floating Cheese" class="floating-cheese" id="cheese1">
+    <img src="cheese_float2.png" alt="Floating Cheese" class="floating-cheese" id="cheese2">
+    <img src="cheese_float3.png" alt="Floating Cheese" class="floating-cheese" id="cheese3">
+    <img src="cheese_float4.png" alt="Floating Cheese" class="floating-cheese" id="cheese4">
+
+    <!-- Header Section -->
+    <header class="cheese-header">
+        <h1 class="cheese-title">🧀 CHEESE MODE 🧀</h1>
+        <h2 class="cheese-subtitle">Bobby would be proud!</h2>
+        <div class="melting-cheese"></div>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="cheese-avatar-container">
+            <img src="cheese_frame.png" alt="Cheese Frame" class="cheese-avatar-frame">
+            <img id="avatarImg" alt="Profile Picture" class="avatar">
+        </div>
+        
+        <div class="profile-info">
+            <h2 class="username" id="usernameDisplay">@cheeselover</h2>
+            <p class="bio" id="bioDisplay">
+                Cheese connoisseur extraordinaire! Living the cheesy life and creating cheesy projects. 
+                As Bobby from A Goofy Movie would say, "I stand firm on my cheesy principles!"
+            </p>
+        </div>
+        
+        <div class="bobby-quote">
+            "It's the Leaning Tower of Cheeza! I've been hyper-fixated on cheese for YEARS!"
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <h2 class="projects-title">Cheesy Creations</h2>
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Projects will be loaded here via JavaScript -->
+            <div class="loading-text">Loading cheesy projects...</div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="cheese-footer">
+        <p>🧀 CHEESE MODE ACTIVATED 🧀</p>
+        <p>Inspired by Bobby and his Leaning Tower of Cheeza!</p>
+    </footer>
+    
+    <!-- Cheese Mode Toggle -->
+    <div class="cheese-mode-toggle" id="cheeseToggle">🧀</div>
+
+    <script>
+        // Get creator info
+        async function loadCreator() {
+            try {
+                const creator = await window.websim.getCreator();
+                if (creator && creator.username) {
+                    document.getElementById('usernameDisplay').textContent = '@' + creator.username;
+                    
+                    // Set avatar
+                    const avatarImg = document.getElementById('avatarImg');
+                    if (creator.avatar_url) {
+                        avatarImg.src = creator.avatar_url;
+                    } else {
+                        avatarImg.src = 'cheese_avatar.png';
+                    }
+                    
+                    // Add some cheesy bio text with LLM
+                    generateCheesyBio(creator.username);
+                    
+                    // Load projects
+                    loadProjects(creator.username);
+                } else {
+                    document.getElementById('usernameDisplay').textContent = 'Cheesy Creator';
+                    document.getElementById('avatarImg').src = 'cheese_avatar.png';
+                    document.getElementById('bioDisplay').textContent = 'The ultimate cheese enthusiast!';
+                }
+            } catch (error) {
+                console.error('Error loading creator:', error);
+                document.getElementById('usernameDisplay').textContent = 'Cheesy Creator';
+                document.getElementById('avatarImg').src = 'cheese_avatar.png';
+                document.getElementById('bioDisplay').textContent = 'The ultimate cheese enthusiast!';
+            }
+        }
+        
+        // Load projects for the creator
+        async function loadProjects(username) {
+            try {
+                const response = await fetch(`/api/v1/users/${username}/projects?posted=true`);
+                const data = await response.json();
+                
+                const projectsGrid = document.getElementById('projectsGrid');
+                projectsGrid.innerHTML = '';
+                
+                if (data.projects.data.length === 0) {
+                    projectsGrid.innerHTML = '<div class="loading-text">No cheesy projects found!</div>';
+                    return;
+                }
+                
+                data.projects.data.forEach(item => {
+                    const project = item.project;
+                    const site = item.site;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    
+                    let imageUrl = 'cheese_default.png';
+                    if (item.project_revision && item.project_revision.current_screenshot_url) {
+                        imageUrl = item.project_revision.current_screenshot_url;
+                    }
+                    
+                    let projectUrl = '#';
+                    if (site && site.id) {
+                        projectUrl = `https://websim.ai/c/${site.id}`;
+                    } else if (project.id) {
+                        projectUrl = `https://websim.ai/p/${project.id}`;
+                    }
+                    
+                    card.innerHTML = `
+                        <a href="${projectUrl}" target="_blank">
+                            <img src="${imageUrl}" alt="${project.title || 'Cheese Project'}" class="project-image">
+                            <div class="project-info">
+                                <h3 class="project-title">${project.title || 'Cheese Project'}</h3>
+                                <p class="project-description">${project.description || 'A cheesy creation!'}</p>
+                                <div class="project-stats">
+                                    <div class="project-stat">
+                                        <i>👁️</i> ${project.stats.views}
+                                    </div>
+                                    <div class="project-stat">
+                                        <i>❤️</i> ${project.stats.likes}
+                                    </div>
+                                    <div class="project-stat">
+                                        <i>💬</i> ${project.stats.comments}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                    
+                    projectsGrid.appendChild(card);
+                });
+                
+                cheeseifyProjects();
+                
+            } catch (error) {
+                console.error('Error loading projects:', error);
+                document.getElementById('projectsGrid').innerHTML = 
+                    '<div class="loading-text">Could not load cheesy projects!</div>';
+            }
+        }
+        
+        // Generate cheesy bio with LLM
+        async function generateCheesyBio(username) {
+            try {
+                const completion = await websim.chat.completions.create({
+                    messages: [
+                        {
+                            role: "system",
+                            content: "You are a cheese-obsessed assistant that writes extremely cheesy and over-the-top bios. Reference Bobby from A Goofy Movie and his obsession with cheese. Keep it short (2-3 sentences)."
+                        },
+                        {
+                            role: "user",
+                            content: `Write a cheesy bio for a creator with username: ${username}`
+                        }
+                    ]
+                });
+                
+                document.getElementById('bioDisplay').textContent = completion.content;
+            } catch (error) {
+                console.error('Error generating bio:', error);
+                document.getElementById('bioDisplay').textContent = 
+                    `Cheese master extraordinaire! Standing tall like the Leaning Tower of Cheeza! Bringing the ultimate cheesy goodness to all creations.`;
+            }
+        }
+        
+        // Add extra cheese effects to projects
+        function cheeseifyProjects() {
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach((card, index) => {
+                // Add random rotation
+                const rotation = Math.random() * 6 - 3;
+                card.style.transform = `rotate(${rotation}deg)`;
+                
+                // Add cheese corners
+                const corner = document.createElement('img');
+                corner.src = 'cheese_corner.png';
+                corner.style.position = 'absolute';
+                corner.style.width = '40px';
+                corner.style.height = '40px';
+                corner.style.top = '-10px';
+                corner.style.right = '-10px';
+                
+                card.style.position = 'relative';
+                card.appendChild(corner);
+                
+                // Add delay effect
+                card.style.animationDelay = `${index * 0.2}s`;
+            });
+        }
+        
+        // Toggle extra cheese mode
+        let extraCheeseMode = false;
+        document.getElementById('cheeseToggle').addEventListener('click', () => {
+            extraCheeseMode = !extraCheeseMode;
+            
+            if (extraCheeseMode) {
+                // Add MORE cheese
+                for (let i = 0; i < 10; i++) {
+                    const cheese = document.createElement('img');
+                    cheese.src = `cheese_float${Math.floor(Math.random() * 4) + 1}.png`;
+                    cheese.className = 'floating-cheese';
+                    cheese.style.top = `${Math.random() * 100}%`;
+                    cheese.style.left = `${Math.random() * 100}%`;
+                    cheese.style.width = `${Math.random() * 50 + 50}px`;
+                    cheese.style.animationDelay = `${Math.random() * 10}s`;
+                    document.body.appendChild(cheese);
+                }
+                
+                document.getElementById('cheeseToggle').textContent = '🔥';
+                document.body.style.backgroundColor = '#ffdb83';
+                
+                // Cheese spin everything
+                document.querySelectorAll('.project-card').forEach(card => {
+                    card.style.animation = 'cheese-spin 20s linear infinite';
+                });
+                
+            } else {
+                // Remove the extra cheese
+                const extraCheese = document.querySelectorAll('.floating-cheese:not([id])');
+                extraCheese.forEach(cheese => cheese.remove());
+                
+                document.getElementById('cheeseToggle').textContent = '🧀';
+                document.body.style.backgroundColor = 'var(--cheese-hole)';
+                
+                // Stop spinning
+                document.querySelectorAll('.project-card').forEach(card => {
+                    card.style.animation = '';
+                });
+            }
+        });
+        
+        // Mouse follower cheese
+        let mouseFollower = document.createElement('img');
+        mouseFollower.src = 'cheese_cursor_trail.png';
+        mouseFollower.style.position = 'fixed';
+        mouseFollower.style.width = '30px';
+        mouseFollower.style.height = '30px';
+        mouseFollower.style.pointerEvents = 'none';
+        mouseFollower.style.zIndex = '9999';
+        mouseFollower.style.opacity = '0.7';
+        mouseFollower.style.transition = 'transform 0.1s';
+        document.body.appendChild(mouseFollower);
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseFollower.style.left = (e.clientX - 15) + 'px';
+            mouseFollower.style.top = (e.clientY - 15) + 'px';
+            
+            // Random rotation
+            const rotation = Math.random() * 60 - 30;
+            mouseFollower.style.transform = `rotate(${rotation}deg)`;
+        });
+        
+        // Hide loading screen after loading
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 2000);
+        });
+        
+        // Initialize
+        loadCreator();
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+
