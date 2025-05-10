@@ -40,6 +40,7 @@
             background-position: bottom;
             box-shadow: 0 4px 15px rgba(209, 135, 0, 0.6);
             z-index: 10;
+            margin-bottom: 40px; /* Added space for drips */
         }
         
         .cheese-title {
@@ -106,6 +107,8 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             border: 5px solid var(--cheese-orange);
             max-width: 600px;
+            position: relative;
+            overflow: visible;
         }
         
         .username {
@@ -127,6 +130,7 @@
             padding: 40px 20px;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
         }
         
         .projects-title {
@@ -161,7 +165,7 @@
         .project-card {
             background-color: white;
             border-radius: 15px;
-            overflow: hidden;
+            overflow: visible; /* Changed from hidden to visible to show drips */
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
@@ -171,6 +175,11 @@
         .project-card:hover {
             transform: translateY(-10px) rotate(2deg);
             box-shadow: 0 15px 30px rgba(209, 135, 0, 0.3);
+        }
+        
+        .project-card:hover .cheese-drip {
+            height: 60px; /* Drips more when hovering */
+            animation: drip-animation 2s ease-in-out infinite;
         }
         
         .project-image {
@@ -223,6 +232,7 @@
             background-image: url('cheese_bottom.png');
             background-repeat: repeat-x;
             background-position: top;
+            margin-top: 40px; /* Space for drips */
         }
         
         .floating-cheese {
@@ -317,6 +327,7 @@
             background-color: rgba(255, 245, 215, 0.8);
             border-radius: 15px;
             position: relative;
+            overflow: visible; /* Show the drips */
         }
         
         .bobby-quote::before {
@@ -367,6 +378,7 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             transition: transform 0.3s, box-shadow 0.3s;
+            overflow: visible; /* Show drips */
         }
         
         .cheese-mode-toggle:hover {
@@ -475,16 +487,96 @@
             display: inline-block;
         }
         
-        /* Added melting cheese effect */
+        /* Enhanced melting cheese effect */
         .melting-cheese {
             position: absolute;
             width: 100%;
-            height: 30px;
-            bottom: -30px;
+            height: 60px; /* Increased height */
+            bottom: -60px; /* Positioned further down */
             left: 0;
             background-image: url('cheese_drip.png');
             background-repeat: repeat-x;
-            background-size: 30px 30px;
+            background-size: 50px 60px; /* Larger drips */
+            z-index: 5;
+            animation: drip-animation 3s ease-in-out infinite;
+        }
+        
+        /* New dripping cheese animation */
+        @keyframes drip-animation {
+            0%, 100% {
+                transform: scaleY(1);
+            }
+            50% {
+                transform: scaleY(1.2); /* Stretch the drips */
+            }
+        }
+        
+        /* Added cheese drips for elements */
+        .cheese-drip {
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            bottom: -40px;
+            left: 0;
+            background-image: url('cheese_drip.png');
+            background-repeat: repeat-x;
+            background-size: 40px 40px;
+            z-index: 1;
+            animation: drip-animation 3s ease-in-out infinite;
+        }
+        
+        /* Cheesy drip spots */
+        .drip-spot {
+            position: absolute;
+            width: 30px;
+            height: 60px;
+            background-image: url('cheese_drip.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 10;
+            transform-origin: top center;
+            animation: single-drip 5s ease-in-out infinite;
+        }
+        
+        @keyframes single-drip {
+            0% {
+                transform: scaleY(0.3);
+            }
+            50% {
+                transform: scaleY(1.2);
+            }
+            100% {
+                transform: scaleY(0.8);
+            }
+        }
+        
+        /* Cheese cursor drips */
+        .cheese-cursor-drip {
+            position: fixed;
+            width: 20px;
+            height: 30px;
+            background-image: url('cheese_drip.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 9998;
+            pointer-events: none;
+            animation: fade-out 2s forwards;
+            opacity: 0.8;
+        }
+        
+        @keyframes fade-out {
+            0% {
+                opacity: 0.8;
+                transform: scaleY(0.2);
+            }
+            80% {
+                opacity: 0.6;
+                transform: scaleY(1.5);
+            }
+            100% {
+                opacity: 0;
+                transform: scaleY(1.8);
+            }
         }
     </style>
 </head>
@@ -513,6 +605,7 @@
         <div class="cheese-avatar-container">
             <img src="cheese_frame.png" alt="Cheese Frame" class="cheese-avatar-frame">
             <img id="avatarImg" alt="Profile Picture" class="avatar">
+            <div class="cheese-drip"></div>
         </div>
         
         <div class="profile-info">
@@ -521,16 +614,22 @@
                 Cheese connoisseur extraordinaire! Living the cheesy life and creating cheesy projects. 
                 As Bobby from A Goofy Movie would say, "I stand firm on my cheesy principles!"
             </p>
+            <div class="cheese-drip"></div>
         </div>
         
         <div class="bobby-quote">
             "It's the Leaning Tower of Cheeza! I've been hyper-fixated on cheese for YEARS!"
+            <div class="cheese-drip"></div>
         </div>
     </section>
+    
+    <!-- Random drip spots -->
+    <div id="randomDrips"></div>
     
     <!-- Projects Section -->
     <section class="projects-section">
         <h2 class="projects-title">Cheesy Creations</h2>
+        <div class="cheese-drip" style="top: 50px; z-index: 1;"></div>
         <div class="projects-grid" id="projectsGrid">
             <!-- Projects will be loaded here via JavaScript -->
             <div class="loading-text">Loading cheesy projects...</div>
@@ -544,7 +643,10 @@
     </footer>
     
     <!-- Cheese Mode Toggle -->
-    <div class="cheese-mode-toggle" id="cheeseToggle">🧀</div>
+    <div class="cheese-mode-toggle" id="cheeseToggle">
+        🧀
+        <div class="cheese-drip"></div>
+    </div>
 
     <script>
         // Get creator info
@@ -578,6 +680,9 @@
                 document.getElementById('avatarImg').src = 'cheese_avatar.png';
                 document.getElementById('bioDisplay').textContent = 'The ultimate cheese enthusiast!';
             }
+            
+            // Add random drip spots
+            addRandomDrips();
         }
         
         // Load projects for the creator
@@ -632,6 +737,7 @@
                                 </div>
                             </div>
                         </a>
+                        <div class="cheese-drip"></div>
                     `;
                     
                     projectsGrid.appendChild(card);
@@ -692,7 +798,34 @@
                 
                 // Add delay effect
                 card.style.animationDelay = `${index * 0.2}s`;
+                
+                // Add random drip spots to projects
+                const numDrips = Math.floor(Math.random() * 3) + 1;
+                for (let i = 0; i < numDrips; i++) {
+                    const dripSpot = document.createElement('div');
+                    dripSpot.className = 'drip-spot';
+                    dripSpot.style.left = `${Math.random() * 80 + 10}%`;
+                    dripSpot.style.bottom = `-${Math.random() * 30 + 40}px`;
+                    dripSpot.style.animationDelay = `${Math.random() * 5}s`;
+                    card.appendChild(dripSpot);
+                }
             });
+        }
+        
+        // Add random drip spots throughout the page
+        function addRandomDrips() {
+            const dripsContainer = document.getElementById('randomDrips');
+            
+            // Create 15 random drip spots
+            for (let i = 0; i < 15; i++) {
+                const drip = document.createElement('div');
+                drip.className = 'drip-spot';
+                drip.style.left = `${Math.random() * 95}%`;
+                drip.style.top = `${Math.random() * 80 + 10}%`;
+                drip.style.animationDelay = `${Math.random() * 8}s`;
+                drip.style.zIndex = '5';
+                dripsContainer.appendChild(drip);
+            }
         }
         
         // Toggle extra cheese mode
@@ -711,6 +844,12 @@
                     cheese.style.width = `${Math.random() * 50 + 50}px`;
                     cheese.style.animationDelay = `${Math.random() * 10}s`;
                     document.body.appendChild(cheese);
+                    
+                    // Add drips to floating cheese
+                    const cheeseDrip = document.createElement('div');
+                    cheeseDrip.className = 'cheese-drip';
+                    cheeseDrip.style.width = '100%';
+                    cheese.appendChild(cheeseDrip);
                 }
                 
                 document.getElementById('cheeseToggle').textContent = '🔥';
@@ -720,6 +859,17 @@
                 document.querySelectorAll('.project-card').forEach(card => {
                     card.style.animation = 'cheese-spin 20s linear infinite';
                 });
+                
+                // Add extra drips in extreme mode
+                for (let i = 0; i < 20; i++) {
+                    const drip = document.createElement('div');
+                    drip.className = 'drip-spot';
+                    drip.style.left = `${Math.random() * 95}%`;
+                    drip.style.top = `${Math.random() * 80 + 10}%`;
+                    drip.style.animationDelay = `${Math.random() * 8}s`;
+                    drip.style.zIndex = '5';
+                    document.getElementById('randomDrips').appendChild(drip);
+                }
                 
             } else {
                 // Remove the extra cheese
@@ -733,6 +883,14 @@
                 document.querySelectorAll('.project-card').forEach(card => {
                     card.style.animation = '';
                 });
+                
+                // Remove extra drips
+                const extraDrips = document.querySelectorAll('#randomDrips .drip-spot');
+                if (extraDrips.length > 15) {
+                    for (let i = 15; i < extraDrips.length; i++) {
+                        extraDrips[i].remove();
+                    }
+                }
             }
         });
         
@@ -748,6 +906,20 @@
         mouseFollower.style.transition = 'transform 0.1s';
         document.body.appendChild(mouseFollower);
         
+        // Add cheese drips on click
+        document.addEventListener('click', (e) => {
+            const drip = document.createElement('div');
+            drip.className = 'cheese-cursor-drip';
+            drip.style.left = (e.clientX - 10) + 'px';
+            drip.style.top = e.clientY + 'px';
+            document.body.appendChild(drip);
+            
+            // Remove the drip after animation completes
+            setTimeout(() => {
+                drip.remove();
+            }, 2000);
+        });
+        
         document.addEventListener('mousemove', (e) => {
             mouseFollower.style.left = (e.clientX - 15) + 'px';
             mouseFollower.style.top = (e.clientY - 15) + 'px';
@@ -755,6 +927,20 @@
             // Random rotation
             const rotation = Math.random() * 60 - 30;
             mouseFollower.style.transform = `rotate(${rotation}deg)`;
+            
+            // Occasionally add drip when moving
+            if (Math.random() < 0.01) {
+                const drip = document.createElement('div');
+                drip.className = 'cheese-cursor-drip';
+                drip.style.left = (e.clientX - 10) + 'px';
+                drip.style.top = e.clientY + 'px';
+                document.body.appendChild(drip);
+                
+                // Remove the drip after animation completes
+                setTimeout(() => {
+                    drip.remove();
+                }, 2000);
+            }
         });
         
         // Hide loading screen after loading
@@ -770,4 +956,3 @@
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
-
